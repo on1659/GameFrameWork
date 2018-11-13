@@ -18,7 +18,10 @@ protected:
 	ComPtr<ID3D12GraphicsCommandList>	m_pd3dCommandList;
 	ComPtr<ID3D12Fence>					m_pd3dFence;
 
-	unsigned int				m_nCbvSrvDescriptorIncrementSize;
+	unsigned int						m_nCbvSrvDescriptorIncrementSize;
+
+	//
+	float								m_fCurrentFrameTime;
 
 public:
 
@@ -50,6 +53,7 @@ public:
 
 	WARP_RESULT_ENUM Initialize()
 	{
+		m_fCurrentFrameTime = 0.0f;
 		Release();
 		return  WARP_RESULT_ENUM::OK;
 	}
@@ -68,5 +72,15 @@ public:
 
 	void						SetCBSrvDescriptorIncrementSize(const unsigned int size) { m_nCbvSrvDescriptorIncrementSize = size; }
 	unsigned int				GetCBSrvDescriptorIncrementSize() const { return m_nCbvSrvDescriptorIncrementSize;}
+
+	void						SetCurrentFrameTime(float frameTime)
+	{ 
+		m_fCurrentFrameTime = frameTime;
+	}
+
+	float						GetCurrentFrameTime() 
+	{
+		return m_fCurrentFrameTime; 
+	}
 
 };	

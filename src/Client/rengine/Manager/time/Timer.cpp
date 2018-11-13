@@ -93,7 +93,7 @@ float& CGameTimer::Tick(const int nFPS)
 	if (m_nSampleCount > 0) m_fTimeElapsed /= m_nSampleCount;
 
 	m_fGlobalTime += m_fTimeElapsed;
-
+	CGlobalvariable::GetInstance()->SetCurrentFrameTime(fTimeElapsed);
 	return m_fTimeElapsed;
 }
 

@@ -43,7 +43,7 @@ using float3 = struct { float x; float y; float z; };
 #define TIMER					CGameTimer::GetInstance()
 #define GLOBAL_VARIABLE			CGlobalvariable::GetInstance()
 #define gCamera					CCamera::GetInstance()
-
+#define gFRAME_TIME				CGlobalvariable::GetInstance()->GetCurrentFrameTime()
 
 #define gDevice					CGlobalvariable::GetInstance()->GetDevice()
 #define gSetDevice(X)			CGlobalvariable::GetInstance()->SetDevice(X)

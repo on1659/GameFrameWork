@@ -98,18 +98,22 @@ WARP_RESULT_ENUM CGameFrameWork::Release()
 #endif // NOSCENE_CREATE_CUBE_
 	return WARP_RESULT_ENUM::OK;
 }
+void CGameFrameWork::PreUpdate()
+{
+	if (INPUT->KeyUp(WP_Q))
+		SendMessage(m_hWnd, WM_DESTROY, NULL, NULL);
 
+	TIMER->Tick(60);
+	INPUT->Update((float)TIMER->GetFrameRate());
+}
 void CGameFrameWork::Update()
 {
-
+	
 }
 
 void CGameFrameWork::Render()
 {
-	TIMER->Tick(60);
 
-	if (INPUT->KeyUp(WP_Q))
-		SendMessage(m_hWnd, WM_DESTROY, NULL, NULL);
 
 	HRESULT hResult = gCommandALlocator->Reset();
 	hResult = gGraphicsCommandList->Reset(gCommandALlocator, NULL);

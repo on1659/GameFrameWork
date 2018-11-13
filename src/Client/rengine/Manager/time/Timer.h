@@ -13,7 +13,7 @@ public:
 	CGameTimer(const std::string& name = "Timer");
 	virtual ~CGameTimer();
 
-	float& Tick(const int nFPS);
+	float& Tick(const int nFPS = 0);
 
 	unsigned long GetFrameRate(LPTSTR lpszString = nullptr, int nCharacters = 0) const;
 

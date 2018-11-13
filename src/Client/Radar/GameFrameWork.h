@@ -26,6 +26,8 @@ public:
 
 	virtual WARP_RESULT_ENUM Release() override;
 
+	void PreUpdate();
+
 	void Update();
 
 	void Render();
@@ -56,7 +58,6 @@ private:
 	RECT							m_rcClient;
 	int								m_nWndClientWidth;
 	int								m_nWndClientHeight;
-
 
 	ComPtr<D3DFactory>				m_pdxgiFactory;
 	DXGISSwapChain					*m_pDXGISwapChain;
