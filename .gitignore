@@ -39,6 +39,6 @@
 *.ipch
 *.log
 *.res
-*.ilk
 *.suo
 *.idb
+*.ilk
