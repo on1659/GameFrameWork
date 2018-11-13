@@ -25,13 +25,13 @@ SamplerState gSamplerState : register(s0);
 struct VS_INPUT
 {
     float3 position : POSITION; // 3
-    float4 color : COLOR; // 4
+   // float4 color : COLOR; // 4
 };
 
 struct GS_INPUT
 {
     float4 positionW : POSITION; // world
-    float4 color : COLOR;
+  //  float4 color : COLOR;
 };
 
 struct PS_INPUT
@@ -45,7 +45,6 @@ GS_INPUT VSDiffused(VS_INPUT input, uint nVertexID : SV_VertexID)
 {
     GS_INPUT output;
     output.positionW = float4(input.position, 1.0f);
-    output.color = input.color;
     return (output);
 }
 
@@ -61,7 +60,7 @@ void GSDiffused
 
    //¿ùµå ÁÂÇ¥
     float4 position = input[0].positionW;
-    float4 diffuse = input[0].color;
+   //  float4 diffuse = input[0].color;
     matrix viewProject = mul(gmtxView, gmtxProjection);
     float index = 0;
 

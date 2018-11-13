@@ -98,7 +98,7 @@ private:
 
 	// Mesh
 	ComPtr<D3DBuffer>m_VertexBufferGPU = nullptr;
-	ComPtr<D3DBuffer> uploadBuffer;
+	//ComPtr<D3DBuffer> uploadBuffer;
 
 	//unique_ptr<UploadBuffer<D3DBuffer>>	m_TextureuploadBuffer;
 	ComPtr<D3DBuffer>m_TextureuploadBuffer = nullptr;

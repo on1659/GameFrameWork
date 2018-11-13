@@ -89,52 +89,6 @@ WARP_RESULT_ENUM CGameFrameWork::Release()
 	SAFE_RELEASE(m_pd3dDebugController);
 #endif
 
-	//if (m_pdxgiFactory)
-	//{
-	//	m_pdxgiFactory->Release();
-	//	//m_pdxgiFactory = nullptr;
-	//}
-
-
-	// if (m_pDXGISwapChain)
-	// {
-	//    m_pDXGISwapChain->Release();
-	//    m_pDXGISwapChain = nullptr;
-	// }
-	// 
-	// if (m_pd3dFence)
-	// {
-	//    m_pd3dFence->Release();
-	//    //m_pd3dFence = nullptr;
-	// }
-	// 
-	// for (int i = 0; i < SWAP_CHAIN_BUFFER_COUNT; ++i)
-	// {
-	//    if (m_ppd3dSwapChainBackBuffers[i])
-	//    {
-	//       m_ppd3dSwapChainBackBuffers[i]->Release();
-	//       //m_ppd3dSwapChainBackBuffers[i] = nullptr;
-	//    }
-	// }
-
-	//if (m_pd3dRtvDescriptorHeap)
-	//{
-	//   m_pd3dRtvDescriptorHeap->Release();
-	//   m_pd3dRtvDescriptorHeap = nullptr;
-	//}
-
-	//if (m_pd3dDepthStencilBuffer)
-	//{
-	//   m_pd3dDepthStencilBuffer->Release();
-	//   //m_pd3dDepthStencilBuffer = nullptr;
-	//}
-
-	//if (m_pd3dDsvDescriptorHeap)
-	//{
-	//   m_pd3dDsvDescriptorHeap->Release();
-	//   //m_pd3dDsvDescriptorHeap = nullptr;
-	//}
-
 #ifdef NOSCENE_CREATE_CUBE_
 	SAFE_RELEASE(vsShader);
 	SAFE_RELEASE(psShader);
@@ -698,6 +652,7 @@ void CGameFrameWork::CreateCube()
 		};
 	*/
 
+	ComPtr<D3DBuffer> uploadBuffer;
 	vsBuffer =
 		Radar::Util::CreateBuffer
 		(
@@ -715,39 +670,37 @@ void CGameFrameWork::CreateCube()
 	vsBufferView.SizeInBytes = sizeof(VertexPositionColor) * constmaxCount;
 
 	// Shader & Gameobjectc cb
-	D3D12_DESCRIPTOR_HEAP_DESC cbvHeapDesc;
-	cbvHeapDesc.NumDescriptors = 1;
-	cbvHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
-	cbvHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
-	cbvHeapDesc.NodeMask = 0;
-
-	hr = gDevice->CreateDescriptorHeap
-	(
-		&cbvHeapDesc,
-		__uuidof(ID3D12DescriptorHeap),
-		(void **)(&descriptorHeap)
-	);
+	// D3D12_DESCRIPTOR_HEAP_DESC cbvHeapDesc;
+	// cbvHeapDesc.NumDescriptors = 1;
+	// cbvHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
+	// cbvHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
+	// cbvHeapDesc.NodeMask = 0;
+	// 
+	// hr = gDevice->CreateDescriptorHeap
+	// (
+	// 	&cbvHeapDesc,
+	// 	__uuidof(ID3D12DescriptorHeap),
+	// 	(void **)(&descriptorHeap)
+	// );
 
 	cbWorldMatrix = std::make_unique<UploadBuffer<XMFLOAT4X4>>(gDevice, 1, true);
-	UINT elementByteSize = Radar::CalcConstantBufferByteSize(sizeof(XMFLOAT4X4));
-	D3D12_GPU_VIRTUAL_ADDRESS cbAddress = cbWorldMatrix->Resource()->GetGPUVirtualAddress();
-
+	//UINT elementByteSize = Radar::CalcConstantBufferByteSize(sizeof(XMFLOAT4X4));
+	//D3D12_GPU_VIRTUAL_ADDRESS cbAddress = cbWorldMatrix->Resource()->GetGPUVirtualAddress();
+	
 	// Offset to the ith object constant buffer in the buffer.
-	int boxCBufIndex = 0;//버퍼인덱스!
-	cbAddress += boxCBufIndex * elementByteSize;
+	// int boxCBufIndex = 0;//버퍼인덱스!
+	// cbAddress += boxCBufIndex * elementByteSize;
+	// 
+	// D3D12_CONSTANT_BUFFER_VIEW_DESC cbvDesc;
+	// cbvDesc.BufferLocation = cbAddress;      //콘스턴트 버퍼의 주소
+	// cbvDesc.SizeInBytes = elementByteSize;   //
+	// 
+	// gDevice->CreateConstantBufferView
+	// (
+	// 	&cbvDesc,
+	// 	descriptorHeap->GetCPUDescriptorHandleForHeapStart()
+	// );
 
-	D3D12_CONSTANT_BUFFER_VIEW_DESC cbvDesc;
-	cbvDesc.BufferLocation = cbAddress;      //콘스턴트 버퍼의 주소
-	cbvDesc.SizeInBytes = elementByteSize;   //
-
-	gDevice->CreateConstantBufferView
-	(
-		&cbvDesc,
-		descriptorHeap->GetCPUDescriptorHandleForHeapStart()
-	);
-	XMFLOAT4X4 tmp;
-	tmp._11 = 55.f;
-	cbWorldMatrix->CopyData(0, tmp);
 
 	//-------------------------
 
@@ -770,11 +723,21 @@ void CGameFrameWork::CreateCube()
 	// { "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
 	// // { "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
 	//};
-	UINT nInputElementDescs = 2;
+
+	UINT nInputElementDescs = 1;
 	D3D12_INPUT_ELEMENT_DESC *pd3dInputElementDescs = new D3D12_INPUT_ELEMENT_DESC[nInputElementDescs];
 
-	pd3dInputElementDescs[0] = { "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 };
-	pd3dInputElementDescs[1] = { "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 };
+	pd3dInputElementDescs[0] = 
+	{ 
+		"POSITION",
+		0,
+		DXGI_FORMAT_R32G32B32_FLOAT,
+		0,
+		0,
+		D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,
+		0
+	};
+	//pd3dInputElementDescs[1] = { "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 };
 
 	inputLayOut.pInputElementDescs = pd3dInputElementDescs;
 	inputLayOut.NumElements = nInputElementDescs;
@@ -912,7 +875,7 @@ void CGameFrameWork::RenderCube(ID3D12GraphicsCommandList *pd3dCommandList)
 	D3D12_GPU_VIRTUAL_ADDRESS pd3dGpuAddress = cbWorldMatrix->Resource()->GetGPUVirtualAddress();
 	pd3dCommandList->SetGraphicsRootConstantBufferView(0, pd3dGpuAddress);
 
-	ID3D12DescriptorHeap*descriptorHeaps[2]{ m_pd3dCbvSrvDescriptorHeap.Get(),m_SamplerHeap.Get() };
+	ID3D12DescriptorHeap*descriptorHeaps[2]{ m_pd3dCbvSrvDescriptorHeap.Get(), m_SamplerHeap.Get() };
 	pd3dCommandList->SetDescriptorHeaps(2, descriptorHeaps);
 
 	pd3dCommandList->SetGraphicsRootDescriptorTable(2, m_pd3dCbvSrvDescriptorHeap.Get()->GetGPUDescriptorHandleForHeapStart());//텍스쳐 연결하기.

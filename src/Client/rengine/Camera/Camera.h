@@ -7,16 +7,14 @@
 
 
 //#define _FIRST_
-class CCamera :public CDXObject
+class CCamera : public CDXObject
 {
-	CCamera* CamPtr;
+	static CCamera* CamPtr;
 
 public:
 
 	CCamera(const tstring& name = _XTT("Camera"));
-
 	~CCamera() { }
-
 	CCamera* operator()() { return CamPtr; }
 	void operator=(CCamera* ptr) { CamPtr = ptr; }
 
@@ -27,7 +25,7 @@ public:
 
 	virtual void SetShaderState() {};
 	virtual void CleanShaderState() {}
-	void UpdateShaderState();
+	void UpdateShaderState() {}
 
 	//--------------------------- DX Object ----------------------------
 
@@ -43,22 +41,9 @@ public:
 	virtual void Update(const float& fTimeElapsed) {}
 	virtual void ProcessInput(const float& fTimeElapsed) {}
 
-	XMMATRIX& GetWorldMatrix()
-	{
-		XMFLOAT4X4 xmf4x4World
-		{
-			m_xmf3Right.x, m_xmf3Right.y, m_xmf3Right.z, 0,
-			m_xmf3Up.x,    m_xmf3Up.y,    m_xmf3Up.z, 0,
-			m_xmf3Look.x,  m_xmf3Look.y,  m_xmf3Look.z, 0,
-			m_xmf3Pos.x,   m_xmf3Pos.y,   m_xmf3Pos.z, 1
-		};
-
-		m_xmMatrix = XMLoadFloat4x4(&xmf4x4World);
-		return m_xmMatrix;
-	}
 
 
-	virtual void Render() {};
+	virtual void Render(ID3D12GraphicsCommandList *pd3dCommandList);
 
 
 	//--------------------------------------- Camera Buffer ------------------------------//
@@ -78,28 +63,16 @@ public:
 
 	D3DBuffer* GetViewProjectionBuffer() { return m_pViewProjectionBuffer.Get(); }
 	D3DBuffer* GetGBufferUnpackingBuffer() { return m_pGBufferUnpackingBuffer.Get(); }
+	
+	virtual XMMATRIX& GetWorldMatrix() final;
 
-	XMMATRIX& GetViewMatrix()
-	{
-		m_xmMatrix = XMLoadFloat4x4(&m_xmf4x4View);
-		return  m_xmMatrix;
-	}
-	XMMATRIX& GetProjectionMatrix()
-	{
-		m_xmMatrix = XMLoadFloat4x4(&m_xmf4x4Projection);
-		return  m_xmMatrix;
-	}
+	virtual XMMATRIX& GetViewMatrix() final;
 
-	const DX_VIEWPORT& GetViewport()
-	{
-		return m_d3dViewport;
-	}
+	virtual XMMATRIX& GetProjectionMatrix() final;
 
-	XMVECTOR& GetPosition()
-	{
-		m_xmVector = XMLoadFloat3(&m_xmf3Pos);
-		return m_xmVector;
-	}
+	virtual DX_VIEWPORT& GetViewport() final;
+
+	virtual XMVECTOR& GetPosition() final;
 
 	const XMFLOAT3& GetPositionXMFLOAT3() const { return m_xmf3Pos; }
 	void SetPosition(const XMFLOAT3& f3) { m_xmf3Pos = f3; }

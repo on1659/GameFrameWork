@@ -6,6 +6,8 @@
 #include "PreComplie.h"
 #include "Camera.h"
 
+CCamera* CCamera::CamPtr = nullptr;
+
 CCamera::CCamera(const tstring& name)
 	: CDXObject(name)
 	, m_pGBufferUnpackingBuffer(nullptr)
@@ -54,8 +56,6 @@ void CCamera::SetPosition(const XMVECTOR& xmPosition)
 
 void CCamera::CreatesProjectionMatrix(const float& fFov, const float& fRatio, const float& fNear, const float& fFar)
 {
-	//XMStoreFloat4x4(&m_xmf4x4Projection, XMMatrixPerspectiveFovLH(fFov, fRatio, fNear, fFar));
-	//m_xmf4x4Projection = Radar::Math::PerspectiveFovLH(XMConvertToRadians(fFov), fRatio, fNear, fFar);
 	m_xmf4x4Projection = Radar::Math::PerspectiveFovLH(XMConvertToRadians(fFov), fRatio, fNear, fFar);
 
 	//create oriented frustum
@@ -130,7 +130,13 @@ void CCamera::SetViewport(const DWORD& xTopLeft, const DWORD& yTopLeft, const DW
 	m_d3dViewport.MinDepth = fMinZ;
 	m_d3dViewport.MaxDepth = fMaxZ;
 
-	// SetScissorRect((LONG)xTopLeft, (LONG)yTopLeft, (LONG)nWidth, (LONG)nHeight);
+	SetScissorRect((LONG)xTopLeft, (LONG)yTopLeft, (LONG)nWidth, (LONG)nHeight);
+}
+
+void CCamera::Render(ID3D12GraphicsCommandList *pd3dCommandList)
+{
+	SetViewportsAndScissorRects(gGraphicsCommandList);
+	UpdateShaderVariables(gGraphicsCommandList);
 }
 
 void CCamera::SetViewportsAndScissorRects(ID3D12GraphicsCommandList *pd3dCommandList)
@@ -151,6 +157,7 @@ void CCamera::UpdateShaderVariables(ID3D12GraphicsCommandList *pd3dCommandList)
 
 	UpdateViewMatrix();
 }
+
 
 void CCamera::BaseMove(const float& fTime)
 {
@@ -187,7 +194,42 @@ void CCamera::BaseMouse(const float& fTime)
 	}
 }
 
-void CCamera::UpdateShaderState()
-{
+// Get
 
+XMMATRIX& CCamera::GetWorldMatrix()
+{
+	XMFLOAT4X4 xmf4x4World
+	{
+		m_xmf3Right.x, m_xmf3Right.y, m_xmf3Right.z, 0,
+		m_xmf3Up.x,    m_xmf3Up.y,    m_xmf3Up.z, 0,
+		m_xmf3Look.x,  m_xmf3Look.y,  m_xmf3Look.z, 0,
+		m_xmf3Pos.x,   m_xmf3Pos.y,   m_xmf3Pos.z, 1
+	};
+
+	m_xmMatrix = XMLoadFloat4x4(&xmf4x4World);
+	return m_xmMatrix;
+}
+
+XMMATRIX& CCamera::GetViewMatrix()
+{
+	m_xmMatrix = XMLoadFloat4x4(&m_xmf4x4View);
+	return  m_xmMatrix;
+}
+
+
+XMMATRIX& CCamera::GetProjectionMatrix()
+{
+	m_xmMatrix = XMLoadFloat4x4(&m_xmf4x4Projection);
+	return  m_xmMatrix;
+}
+
+DX_VIEWPORT& CCamera::GetViewport()
+{
+	return m_d3dViewport;
+}
+
+XMVECTOR& CCamera::GetPosition()
+{
+	m_xmVector = XMLoadFloat3(&m_xmf3Pos);
+	return m_xmVector;
 }
