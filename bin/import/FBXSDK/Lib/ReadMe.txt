@@ -1,0 +1,1 @@
+현재 에셋 경로에 포함된 FBXSDK의 라이브러리는 FBXSDK 2016.2 버전 Visual Studio 2015용입니다.
