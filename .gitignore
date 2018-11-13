@@ -33,3 +33,12 @@
 
 # Custom Add
 *.opendb
+*.tlog
+*.pdb
+*.VC.db
+*.ipch
+*.log
+*.res
+*.ilk
+*.suo
+*.idb
