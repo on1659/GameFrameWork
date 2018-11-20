@@ -5,28 +5,6 @@
 
 #pragma once
 
-// using
-using D3DDevice		 = ID3D12Device;
-using D3DBuffer		 = ID3D12Resource;
-using D3DFactory	 = IDXGIFactory4;
-using DXGISSwapChain = IDXGISwapChain3;
-using DX_VIEWPORT	 = D3D12_VIEWPORT;
-using DX_RECT	     = D3D12_RECT;
-using Microsoft::WRL::ComPtr;
-
-using float4 = struct { float x; float y; float z; float w; };
-using float3 = struct { float x; float y; float z; };
-
-
-#ifdef _UNICODE
-	using tstring = std::wstring;
-	#define tcout wcout
-#else
-	using tstring = std::string;
-#	define tstring string
-#	define tcout	cout
-#endif
-
 #define WINDOWS_WIDTH						640
 #define WINDOWS_HEIGHT						480
 	
@@ -38,22 +16,22 @@ using float3 = struct { float x; float y; float z; };
 #define SHADOW_RENDER_TARGET_HEIGHT			WINDOWS_HEIGHT
 
 
-#define GameFrameWork			CGameFrameWork::GetInstance()
-#define INPUT					CInputManager::GetInstance()
-#define TIMER					CGameTimer::GetInstance()
-#define GLOBAL_VARIABLE			CGlobalvariable::GetInstance()
-#define gCamera					CCamera::GetInstance()
-#define gFRAME_TIME				CGlobalvariable::GetInstance()->GetCurrentFrameTime()
+#define GameFrameWork						CGameFrameWork::GetInstance()
+#define INPUT								CInputManager::GetInstance()
+#define TIMER								CGameTimer::GetInstance()
+#define GLOBAL_VARIABLE						CGlobalData::GetInstance()
+#define gCamera								CCamera::GetInstance()
+#define gFRAME_TIME							CGlobalData::GetInstance()->GetCurrentFrameTime()
 
-#define gDevice					CGlobalvariable::GetInstance()->GetDevice()
-#define gSetDevice(X)			CGlobalvariable::GetInstance()->SetDevice(X)
+#define gDevice								CGlobalData::GetInstance()->GetDevice()
+#define gSetDevice(X)						CGlobalData::GetInstance()->SetDevice(X)
 
-#define setCBSrcDescriptorIncrementSize(X) CGlobalvariable::GetInstance()->SetCBSrvDescriptorIncrementSize(X)
-#define getCBSrcDescriptorIncrementSize		CGlobalvariable::GetInstance()->GetCBSrvDescriptorIncrementSize();
+#define setCBSrcDescriptorIncrementSize(X)	CGlobalData::GetInstance()->SetCBSrvDescriptorIncrementSize(X)
+#define getCBSrcDescriptorIncrementSize		CGlobalData::GetInstance()->GetCBSrvDescriptorIncrementSize();
 
-#define gCommandALlocator		CGlobalvariable::GetInstance()->GetCommandAllocator()
-#define gCommandQueue			CGlobalvariable::GetInstance()->GetCommandQueue()
-#define gGraphicsCommandList	CGlobalvariable::GetInstance()->GetGraphicsCommandList()
+#define gCommandALlocator					CGlobalData::GetInstance()->GetCommandAllocator()
+#define gCommandQueue						CGlobalData::GetInstance()->GetCommandQueue()
+#define gGraphicsCommandList				CGlobalData::GetInstance()->GetGraphicsCommandList()
 
 
 #define DEFAULT_MESH_SIZE		5
@@ -115,6 +93,4 @@ namespace N{ enum T
 #define MakeUniPtr(T)	 std::make_unique<T>()()
 
 #define RANDOM_COLOR	XMFLOAT4(rand() / float(RAND_MAX), rand() / float(RAND_MAX), rand() / float(RAND_MAX), rand() / float(RAND_MAX))
-
-
 

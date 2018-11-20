@@ -306,9 +306,9 @@ WARP_RESULT_ENUM CGameFrameWork::CreateCommandQueueAndList()
 
 	hResult = pd3dCommandList->Close();
 
-	CGlobalvariable::GetInstance()->SeCommandAllocator(pd3dCommandAllocator);
-	CGlobalvariable::GetInstance()->SetCommandQueue(pd3dCommandQueue);
-	CGlobalvariable::GetInstance()->SetGraphicsCommandList(pd3dCommandList);
+	CGlobalData::GetInstance()->SeCommandAllocator(pd3dCommandAllocator);
+	CGlobalData::GetInstance()->SetCommandQueue(pd3dCommandQueue);
+	CGlobalData::GetInstance()->SetGraphicsCommandList(pd3dCommandList);
 
 	if (hResult == S_OK)
 		return CWARPResult::OK();
@@ -634,8 +634,8 @@ void CGameFrameWork::CreateCube()
 #pragma region [Create Mesh & GameObject & Shader]
 
 	const int constmaxCount = 1;
-	VertexPositionColor pVertices[constmaxCount];
-	pVertices[0] = VertexPositionColor{ XMFLOAT3(0.5f, 0.5f, 0.0f), XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f) }; //XMFLOAT4(Colors::Red)
+	VertexPosition pVertices[constmaxCount];
+	pVertices[0] = VertexPosition{ XMFLOAT3(0.5f, 0.5f, 0.0f)}; //XMFLOAT4(Colors::Red)
 	//pVertices[1] = VertexPositionColor{ XMFLOAT3(0.5f, -0.5f, 0.0f), XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f) };
 	//pVertices[2] = VertexPositionColor{ XMFLOAT3(-0.5f, -0.5f, 0.0f), XMFLOAT4(Colors::Blue)/*XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)*/ };
 
@@ -663,15 +663,15 @@ void CGameFrameWork::CreateCube()
 			gDevice,
 			gGraphicsCommandList,
 			pVertices,
-			sizeof(VertexPositionColor) * constmaxCount,
+			sizeof(VertexPosition) * constmaxCount,
 			D3D12_HEAP_TYPE_DEFAULT,
 			D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER,
 			&uploadBuffer
 		);
 
 	vsBufferView.BufferLocation = vsBuffer->GetGPUVirtualAddress();
-	vsBufferView.StrideInBytes = sizeof(VertexPositionColor);
-	vsBufferView.SizeInBytes = sizeof(VertexPositionColor) * constmaxCount;
+	vsBufferView.StrideInBytes = sizeof(VertexPosition);
+	vsBufferView.SizeInBytes = sizeof(VertexPosition) * constmaxCount;
 
 	// Shader & Gameobjectc cb
 	// D3D12_DESCRIPTOR_HEAP_DESC cbvHeapDesc;

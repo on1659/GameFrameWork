@@ -7,7 +7,7 @@
 
 #include "PreComplie.h"
 
-class CGlobalvariable : public CSingleTonBase<CGlobalvariable>
+class CGlobalData : public CSingleTonBase<CGlobalData>
 {
 protected:
 	tstring								m_CommandLine;
@@ -25,12 +25,12 @@ protected:
 
 public:
 
-	CGlobalvariable(const tstring& name = _XTT("CGlobalvariable")) : CSingleTonBase(name)
+	CGlobalData(const tstring& name = _XTT("CGlobalData")) : CSingleTonBase(name)
 	{
 		Initialize();
 	}
 
-	~CGlobalvariable()
+	~CGlobalData()
 	{
 		if (m_pd3dDevice)
 			m_pd3dDevice->Release();

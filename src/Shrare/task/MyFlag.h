@@ -5,6 +5,14 @@
 
 #pragma once
 
+/// -----------------------------------------
+#	define DX12
+#ifndef DX12
+	# define DX11
+#endif // DX12
+
+/// -----------------------------------------
+
 //#	define _USE_THREAD_DUMP_170903		//- KYT Remove '17.10.04
 #	define _USE_RTV_170826
 #	define _TEMP_INSTANCE_OBJECT_170826
@@ -15,6 +23,7 @@
 //#	define _USE_GBUFFER_CHANGE_171001_
 #	define _REMOVE_LIGHT_MESH_171001_
 #	define _ADD_LATE_CREATE_START_
+//#	define _ADD_SHAYER_SYSTEM_					// 2018-11-20 ±è¿µÅÂ : ½¦ÀÌ´õ ±â´É °³¹ß
 
 
 #	define NOSCENE_CREATE_CUBE_

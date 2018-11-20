@@ -13,6 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "task", "task", "{D7B07362-7
 		..\Shrare\task\MyEnum.h = ..\Shrare\task\MyEnum.h
 		..\Shrare\task\MyFlag.h = ..\Shrare\task\MyFlag.h
 		..\Shrare\task\MyStruct.h = ..\Shrare\task\MyStruct.h
+		..\Shrare\task\MyUsing.h = ..\Shrare\task\MyUsing.h
 	EndProjectSection
 EndProject
 Global

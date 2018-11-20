@@ -54,7 +54,10 @@ using namespace DirectX::PackedVector;
 		VertexPositionColor() {};
 		VertexPositionColor(XMFLOAT3 p, XMFLOAT4 c) :xmf3Positoin{ p }, xmf3Color{ c } {}
 	};
-
+	struct VertexPosition
+	{
+		XMFLOAT3 xmf3Positoin;
+	};
 #pragma endregion
 
 #pragma region [LIGHT]

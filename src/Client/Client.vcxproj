@@ -166,6 +166,7 @@
     <ClInclude Include="Radar\GBuffer\GBuffer.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="rengine\Buffer\CRBuffer.h" />
     <ClInclude Include="rengine\Camera\Camera.h" />
     <ClInclude Include="rengine\Camera\FreeCamera.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -211,6 +212,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="RClient.cpp" />
+    <ClCompile Include="rengine\Buffer\CRBuffer.cpp" />
     <ClCompile Include="rengine\Camera\Camera.cpp" />
     <ClCompile Include="rengine\Camera\FreeCamera.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

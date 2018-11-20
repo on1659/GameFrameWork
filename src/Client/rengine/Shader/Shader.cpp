@@ -6,6 +6,34 @@
 #include "PreComplie.h"
 #include "Shader.h"
 
+#ifdef _ADD_SHAYER_SYSTEM_
+CRShader::CRShader()
+{
+
+}
+CRShader::~CRShader()
+{
+
+} 
+WARP_RESULT_ENUM CRShader::Initialize()
+{
+	m_nType			 = MESH_TYPE::NOT;
+	m_nInputElements = 0;
+
+	return CWARPResult::OK(); 
+}
+
+D3D12_SHADER_BYTECODE CShader::CreateVertexShader(ID3DBlob **ppd3dShaderBlob)
+{
+	D3D12_SHADER_BYTECODE d3dShaderByteCode;
+	d3dShaderByteCode.BytecodeLength = 0;
+	d3dShaderByteCode.pShaderBytecode = NULL;
+
+	return(d3dShaderByteCode);
+}
+
+#endif // 
+
 CShader::CShader()
 {
 }

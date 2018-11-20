@@ -93,6 +93,12 @@
     <ClInclude Include="..\Shrare\task\MyStruct.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="CRBuffer.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="rengine\Buffer\CRBuffer.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="rengine\Manager\input\InputManager.cpp">
@@ -138,6 +144,12 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="rengine\DX12\DDSTextureLoader12.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="CRBuffer.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="rengine\Buffer\CRBuffer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

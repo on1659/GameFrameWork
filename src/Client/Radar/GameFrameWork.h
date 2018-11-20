@@ -73,12 +73,12 @@ private:
 	UINT64							m_nFenceValues[SWAP_CHAIN_BUFFER_COUNT];
 	HANDLE							m_hFenceEvent;
 
-	ComPtr<ID3D12Resource>			m_ppd3dSwapChainBackBuffers[SWAP_CHAIN_BUFFER_COUNT];
+	ComPtr<D3DBuffer>				m_ppd3dSwapChainBackBuffers[SWAP_CHAIN_BUFFER_COUNT];
 	ComPtr<ID3D12DescriptorHeap>	m_pd3dRtvDescriptorHeap;
 	UINT							m_nRtvDescriptorIncrementSize;
 	D3D12_CPU_DESCRIPTOR_HANDLE		m_pd3dRtvSwapChainBackBufferCPUHandles[SWAP_CHAIN_BUFFER_COUNT];
 
-	ComPtr<ID3D12Resource>			m_pd3dDepthStencilBuffer;
+	ComPtr<D3DBuffer>				m_pd3dDepthStencilBuffer;
 	ComPtr<ID3D12DescriptorHeap>	m_pd3dDsvDescriptorHeap;
 	D3D12_CPU_DESCRIPTOR_HANDLE		m_d3dDsvDepthStencilBufferCPUHandle;
 
