@@ -48,6 +48,14 @@ bool RScriptParsing::ScanInt(int& data)
 	return true;
 }
 
+bool RScriptParsing::ScanStr(tstring& data)
+{
+	if (!isOpen()) return false;
+	tstring tstr;
+	ifs_ >> tstr;
+	data = tstr;
+	return true;
+}
 
 
 void RScriptParsing::read(const string fileName)

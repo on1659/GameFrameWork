@@ -26,6 +26,7 @@ public:
 public:
 	bool ScanType(tstring& msg);
 	bool ScanInt(int& data);
+	bool ScanStr(tstring& data);
 
 	template<class T>
 	bool ScanData(T& data)
