@@ -55,6 +55,7 @@ using float3 = struct { float x; float y; float z; };
 	using rbyte = wchar_t;
 	#define tcout wcout
 	#define tofstream wofstream
+	#define tifstream wifstream
 #else
 	using tstring = std::string;
 	// using tifstream = ifstream;
@@ -63,4 +64,5 @@ using float3 = struct { float x; float y; float z; };
 	using rbyte = char;
 	#define tcout	cout
 	#define tofstream ofstream
+	#define tifstream ifstream
 #endif
