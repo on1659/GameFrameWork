@@ -6,7 +6,7 @@
 #pragma once
 
 // using
-
+#ifdef CLIENT_ONLY
 #ifdef DX12
 
 	using D3D_IA_ELEMENT	= D3D12_INPUT_ELEMENT_DESC;
@@ -40,16 +40,27 @@
 #endif // DX11
 
 using Microsoft::WRL::ComPtr;
+#endif // CLIENT_ONLY
+
 
 using float4 = struct { float x; float y; float z; float w; };
 using float3 = struct { float x; float y; float z; };
 
 
 #ifdef _UNICODE
-using tstring = std::wstring;
-#define tcout wcout
+	using tstring = std::wstring;
+	// using tifstream = wifstream;
+	// using tofstream = wofstream;
+
+	using rbyte = wchar_t;
+	#define tcout wcout
+	#define tofstream wofstream
 #else
-using tstring = std::string;
-#	define tstring string
-#	define tcout	cout
+	using tstring = std::string;
+	// using tifstream = ifstream;
+	// using tofstream = ofstream;
+
+	using rbyte = char;
+	#define tcout	cout
+	#define tofstream ofstream
 #endif

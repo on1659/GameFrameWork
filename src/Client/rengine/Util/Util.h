@@ -12,11 +12,6 @@ namespace Radar
 	template<typename Ty, std::size_t N>
 	constexpr size_t GetArraySize(Ty(&)[N]) noexcept { return N; };
 
-	static void c_blue() { SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0x000b); }
-	static void c_red() { SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0x000c); }
-	static void c_white() { SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0x000f); }
-	static void c_default() { SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0x0007); }
-
 	static int random(const int& start, const int& end)
 	{
 		return ((rand() % (end - start) + start + 1));

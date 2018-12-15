@@ -9,12 +9,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Share", "Share", "{576DF513
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "task", "task", "{D7B07362-7CD1-4302-B5C8-533024A0C8F3}"
 	ProjectSection(SolutionItems) = preProject
+		..\Shrare\task\MyClientDefine.h = ..\Shrare\task\MyClientDefine.h
 		..\Shrare\task\MyDefine.h = ..\Shrare\task\MyDefine.h
 		..\Shrare\task\MyEnum.h = ..\Shrare\task\MyEnum.h
 		..\Shrare\task\MyFlag.h = ..\Shrare\task\MyFlag.h
 		..\Shrare\task\MyStruct.h = ..\Shrare\task\MyStruct.h
 		..\Shrare\task\MyUsing.h = ..\Shrare\task\MyUsing.h
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Script", "..\Script\Script.vcxproj", "{475C1900-5D2E-4674-ACCA-49F91E0CFB53}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +35,14 @@ Global
 		{96E4EA67-C036-45E4-897B-188F07E5AFD8}.Release|x64.Build.0 = Release|x64
 		{96E4EA67-C036-45E4-897B-188F07E5AFD8}.Release|x86.ActiveCfg = Release|Win32
 		{96E4EA67-C036-45E4-897B-188F07E5AFD8}.Release|x86.Build.0 = Release|Win32
+		{475C1900-5D2E-4674-ACCA-49F91E0CFB53}.Debug|x64.ActiveCfg = Debug|x64
+		{475C1900-5D2E-4674-ACCA-49F91E0CFB53}.Debug|x64.Build.0 = Debug|x64
+		{475C1900-5D2E-4674-ACCA-49F91E0CFB53}.Debug|x86.ActiveCfg = Debug|Win32
+		{475C1900-5D2E-4674-ACCA-49F91E0CFB53}.Debug|x86.Build.0 = Debug|Win32
+		{475C1900-5D2E-4674-ACCA-49F91E0CFB53}.Release|x64.ActiveCfg = Release|x64
+		{475C1900-5D2E-4674-ACCA-49F91E0CFB53}.Release|x64.Build.0 = Release|x64
+		{475C1900-5D2E-4674-ACCA-49F91E0CFB53}.Release|x86.ActiveCfg = Release|Win32
+		{475C1900-5D2E-4674-ACCA-49F91E0CFB53}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

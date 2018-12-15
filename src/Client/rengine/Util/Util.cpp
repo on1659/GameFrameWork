@@ -11,6 +11,7 @@
 #include "Util.h"
 #include "task/MyFlag.h"
 #include "task/MyDefine.h"
+#include "task/MyClientDefine.h"
 #include "task/MyEnum.h"
 
 #include <fstream>
