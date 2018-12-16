@@ -1,3 +1,26 @@
+/*
+	전제용이 종대배를 만지는 퀘스트
+*/
 
-[tag] 12.3
-[myName] 123
+
+[name] `abcde` // <-- 이런식으로 해야됨
+
+[level] 1 50 				// %d, %d (start, end)
+	
+[grade] `main`  			// `%s`	  (`main`, `sub`, `daily`, monthly` 등)
+		
+[reward item] 				// 보상아이템이 여러개일 수 있으니
+  1234 1	 				// %d %d  (itemIndex, count)
+  2345 4					// %d %d  (itemIndex, count) 
+[/reward item]          	//
+							//
+[prev quest index]			// 선행 퀘스트
+  1234 						// %d (questIndex)
+  4567						// %d (questIndex)
+  4584						// %d (questIndex)
+[/prev quest index]
+
+ 
+
+
+

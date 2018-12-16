@@ -251,8 +251,20 @@ namespace Radar::Script
 			if (temp.empty())
 				break;
 
+			if (temp[0] == _XTT(' '))
+			{
+				curPivot++;
+				continue;
+			}
+
 			string::size_type parsingEnd = 0;
 			if ((parsingEnd = temp.find(PARSING_END)) < 1)
+			{
+				if (parsingEnd < string::npos)
+					return info;
+			}
+
+			if ((parsingEnd = temp.find(FOOTNOTE_LINE)) < 1)
 			{
 				if (parsingEnd < string::npos)
 					return info;
@@ -265,7 +277,7 @@ namespace Radar::Script
 				auto iter = temp.begin();
 				if ((tag_end = temp.find(TAG_LAST, tag_end)) < string::npos)
 				{
-					info.pushTag(tstring(temp.begin(), temp.begin() + (tag_end + tstrlen(TAG_LAST))));
+					info.pushTag(tstring(temp.begin(), temp.begin() + (tag_end + 1)));
 					curPivot = (tag_end + 1);
 				}
 			}
@@ -288,7 +300,7 @@ namespace Radar::Script
 					if ((strSize = temp.find(STRING_TAG, 1)) < string::npos)
 					{
 						tstring str;
-						str.assign(temp.begin() + tstrlen(STRING_TAG), temp.begin() + strSize);
+						str.assign(temp.begin() + 1, temp.begin() + strSize);
 						info.push(str);
 						// tag.push(tatoi(str.c_str()));
 						curPivot += (strSize + 1);
@@ -296,9 +308,12 @@ namespace Radar::Script
 				}
 				else if ((strSize = temp.find(PARSING_END)) < string::npos)
 				{
+					string::size_type s2 = temp.find(FOOTNOTE_LINE);
+					strSize = min(strSize, s2);
+
 					// int, float을 정확히 구분할 수 없음
 					tstring str;
-					str.assign(temp.begin() + tstrlen(PARSING_END), temp.begin() + strSize);
+					str.assign(temp.begin() + 1, temp.begin() + strSize);
 
 					if (temp.find(COMMA) < string::npos)
 					{
@@ -315,6 +330,7 @@ namespace Radar::Script
 					}
 					curPivot += strSize;
 				}
+
 				else
 				{
 					curPivot++;
@@ -346,6 +362,10 @@ namespace Radar::Script
 				tstring str = par.byte;
 				tstring::size_type strSize;
 				if (str.empty())
+				{
+					continue;
+				}
+				else if (str[0] == PARSING_END)
 				{
 					continue;
 				}

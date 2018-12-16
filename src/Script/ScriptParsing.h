@@ -11,19 +11,19 @@
 #define PARSING_SIZE 512
 #define READ_IOS_MODE (ios::in | ios::binary)
 
-#define TAG_START		_XTT("[")
-#define TAG_ERROR		_XTT("/")
-#define TAG_LAST		_XTT("]")
+#define TAG_START		_XTT('[')
+#define TAG_ERROR		_XTT('/')
+#define TAG_LAST		_XTT(']')
 
-#define STRING_TAG		_XTT("`")
+#define STRING_TAG		_XTT('`')
 
 #define FOOTNOTE_LINE	_XTT("//")
 #define FOOTNOTE_START	_XTT("/*")
 #define FOOTNOTE_LAST	_XTT("*/")
 
-#define PARSING_END		_XTT("\r")
-#define COMMA			_XTT(".")
-#define FLOAT_SYMBOL	_XTT("f")
+#define PARSING_END		_XTT('\r')
+#define COMMA			_XTT('.')
+#define FLOAT_SYMBOL	_XTT('f')
 
 
 namespace Radar::Script
