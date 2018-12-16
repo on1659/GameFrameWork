@@ -38,6 +38,32 @@ inline std::wstring AnsiToWString(const std::string& str)
 #define enum_def(N) \
 namespace N{ enum T 
 #define enum_end ; }
+
+
+#define switch_str(key) \
+{ \
+　　static stdext::hash_map<string, in > s_hm; \
+　　static bool s_bInit = false; \
+　　bool bLoop = true; \
+　　while(bLoop) \
+　　{ \
+　　　　int nKey = -1; \
+　　　　if(s_bInit) { nKey=s_hm[key]; bLoop = false; } \
+　　　　switch(nKey) \
+　　　　{ \
+　　　　　　case -1: {
+
+#define case_str(token)  } case __LINE__: if(!s_bInit) s_hm[token] = __LINE__; else {
+
+#define default_str()    } case 0: default: if(s_bInit) {
+
+#define switch_end()   \
+　　　　　　}      \
+　　　　}       \
+　　　　if(!s_bInit) s_bInit=true; \
+　　}        \
+}
+
 #define ERR_INFO __FILE__, __LINE__
 #define ERROR_INFO ERR_INFO
 

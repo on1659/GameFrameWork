@@ -53,16 +53,24 @@ using float3 = struct { float x; float y; float z; };
 	// using tofstream = wofstream;
 
 	using rbyte = wchar_t;
-	#define tcout wcout
-	#define tofstream wofstream
-	#define tifstream wifstream
+	#define tcout		wcout
+	#define tofstream	wofstream
+	#define tifstream	wifstream
+	#define tatoi		_wtoi
+	#define tatof		_wtof
+	#define tstrtof		wcstof
+	#define tstrlen		wcslen
 #else
 	using tstring = std::string;
 	// using tifstream = ifstream;
 	// using tofstream = ofstream;
 
 	using rbyte = char;
-	#define tcout	cout
-	#define tofstream ofstream
-	#define tifstream ifstream
+	#define tcout		cout
+	#define tofstream	ofstream
+	#define tifstream	ifstream
+	#define tatoi		atoi
+	#define tatof		atof
+	#define tstrtof		strtof
+	#define tstrlen		strlen
 #endif
