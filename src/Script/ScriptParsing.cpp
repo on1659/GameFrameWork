@@ -14,8 +14,13 @@ namespace Radar::Script
 	RScriptParsing::TagInfo Radar::Script::RScriptParsing::TagInfo::operator=(const TagInfo& rhs)
 	{
 		tag_ = rhs.tag_;
-		for (auto type : rhs.vData)
-			vData.push_back(type);
+		for (auto iter : rhs.dataMap_)
+		{
+			vector<scriptType> v;
+			for (auto it : iter.second)
+				v.push_back(it);
+			dataMap_.insert(make_pair(iter.first, v));
+		}
 		return *this;
 	}
 
@@ -24,14 +29,24 @@ namespace Radar::Script
 		if (tag_.find(rhs.tag_) > string::npos)
 			return false;
 
-		if (vData.size() != rhs.vData.size())
+		if (dataMap_.size() != rhs.dataMap_.size())
 			return false;
 
 		int i = 0;
-		for (auto d : rhs.vData)
+		for (auto iter : rhs.dataMap_)
 		{
-			if (vData[i++] != d)
+			auto findIter = dataMap_.find(iter.first);
+			if (findIter == rhs.dataMap_.end())
 				return false;
+
+			if (findIter->second.size() != iter.second.size())
+				return false;
+
+			for (int i = 0; i < findIter->second.size(); ++i)
+			{
+				if (findIter->second[i] != iter.second[i])
+					return false;
+			}
 		}
 
 		return true;
@@ -40,14 +55,14 @@ namespace Radar::Script
 	void RScriptParsing::TagInfo::clear()
 	{
 		tag_.clear();
-		vData.clear();
+		dataMap_.clear();
 		errCode_ = TAG_INFO_TPYE::NONE;
 	}
 
 
 	 RScriptParsing::TAG_INFO_TPYE RScriptParsing::TagInfo::isVaild() const
 	{
-		if (vData.empty())
+		if (dataMap_.empty())
 			return TAG_INFO_TPYE::DATA_NOT;
 		if (tag_.empty())
 			return TAG_INFO_TPYE::TAG_NOT;
@@ -56,7 +71,10 @@ namespace Radar::Script
 
 	void RScriptParsing::TagInfo::push(const scriptType s)
 	{
-		vData.push_back(s);
+		dataMap_[s.index()].push_back(s);
+
+		// dataMap_.insert(make_pair(s.index(), s));
+		// vData.push_back(s);
 	}
 
 	void RScriptParsing::TagInfo::pushTag(const tstring s)
@@ -149,25 +167,8 @@ namespace Radar::Script
 
 		for (auto d : vTagData_)
 		{
-			wcout << d.tag_ << "--";
+			//wcout << d.tag_ << "--";
 		}
-
-		// cout << "size : " << vParsingData_.size() << endl;
-		// for (auto c : vParsingData_)
-		// {
-		// 	// tcout << c.byte << endl;
-		// 	vParsingString_.pback(c.byte);
-		// 
-		// 
-		// 
-		// 
-		// 
-		// 
-		// }
-		// for (auto s : vParsingString_)
-		// 	tcout << s << endl;
-		// cout << endl;
-
 	}
 	bool RScriptParsing::isOpen()
 	{
@@ -450,6 +451,4 @@ namespace Radar::Script
 
 		return result;
 	}
-
-
 }

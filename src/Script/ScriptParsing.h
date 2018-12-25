@@ -32,6 +32,8 @@ namespace Radar::Script
 	{
 		using scriptType = variant<float, int, tstring>;
 
+
+
 		enum class SCAN_TAG
 		{
 			NONE,
@@ -66,7 +68,8 @@ namespace Radar::Script
 
 			TAG_INFO_TPYE errCode_;
 			tstring tag_;
-			vector<scriptType> vData;
+			//vector<scriptType> vData;
+			map<size_t, vector<scriptType>> dataMap_;
 		};
 
 	public:
@@ -95,6 +98,7 @@ namespace Radar::Script
 
 		virtual void read(const string filName);
 		virtual void read(const tstring filName);
+
 	private:
 		bool isOpen();
 		void re_open();
@@ -102,6 +106,18 @@ namespace Radar::Script
 		const SCAN_TAG isTagType(const tstring str) const;
 		const bool isStrType(const tstring str) const;
 		const bool isIntType(const tstring str) const;
+
+		tstring getType(const scriptType type)
+		{
+			switch (type.index())
+			{
+			case 0: return tstring(_XTT("float"));
+			case 1: return tstring(_XTT("int"));
+			case 2: return tstring(_XTT("tstring"));
+			}
+			return tstring(_XTT("not"));
+		}
+
 		TagInfo tryMakeTagData(const tstring in);
 
 		virtual bool tryRead(const tstring filName);
@@ -115,5 +131,4 @@ namespace Radar::Script
 
 		// vector<tstring>	vParsingString_;
 	};
-
 }
