@@ -297,21 +297,22 @@ namespace Radar
 
 #if defined(DEBUG) || defined(_DEBUG)  
 		compileFlags = D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
-#endif
+#endif	// (DEBUG) || defined(_DEBUG)  
 
 		HRESULT hr = S_OK;
 
 		ComPtr<ID3DBlob> byteCode = nullptr;
+#if defined (DEBUG) || defined(_DEBUG)  
 		ComPtr<ID3DBlob> errors;
 		hr = D3DCompileFromFile(filename.c_str(), defines, D3D_COMPILE_STANDARD_FILE_INCLUDE,
 			entrypoint.c_str(), target.c_str(), compileFlags, 0, &byteCode, &errors);
-
 		if (errors != nullptr)
 			OutputDebugStringA((char*)errors->GetBufferPointer());
 		if (hr != S_OK)
 		{
 			cout << errors << endl;
 		}
+#endif	// (DEBUG) || defined(_DEBUG)  
 
 		return byteCode;
 	}

@@ -10,7 +10,8 @@
 #include <tchar.h>
 #include <windows.h>
 #include <DbgHelp.h>
-#include "Util.h"
+#include "..\\..\\Client\rengine\Util\Util.h"
+//#include "Util.h"
 
 /*
 	프로그램 crash 확인

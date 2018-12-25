@@ -30,16 +30,10 @@
     <ClInclude Include="rengine\Object.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="rengine\MiniDump.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="rengine\Globalvariable.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="rengine\Manager\input\InputManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="rengine\Util\Util.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Radar\GameFrameWork.h">
@@ -90,18 +84,15 @@
     <ClInclude Include="rengine\DX12\DDSTextureLoader12.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="..\Shrare\task\MyStruct.h">
+    <ClInclude Include="rengine\Buffer\CRBuffer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="rengine\Buffer\CRBuffer.h">
+    <ClInclude Include="rengine\Util\Util.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="rengine\Manager\input\InputManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="rengine\Util\Util.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Radar\GameFrameWork.cpp">
@@ -144,6 +135,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="rengine\Buffer\CRBuffer.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="rengine\Util\Util.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

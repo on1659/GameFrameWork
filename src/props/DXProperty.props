@@ -17,7 +17,7 @@
     </ClCompile>
     <ClCompile>
       <PrecompiledHeaderFile>PreComplie.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>rengine;..\..\bin\import\DirectX\DX12;Radar;..\Client;..\;rengine\Manager\time;rengine\DXObject;rengine\Camera;rengine\Shader;rengine\Mesh;..\Shrare;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>rengine;..\..\bin\import\DirectX\DX12;Radar;..\Client;..\;rengine\Manager\time;rengine\DXObject;rengine\Camera;rengine\Shader;rengine\Mesh;..\Share;..\Share\util;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <WarningLevel>Level3</WarningLevel>
     </ClCompile>
   </ItemDefinitionGroup>
