@@ -1,25 +1,93 @@
 
-// Copyright ⓒ http://radar92.tistory.com 
-// 무단 전재 및 재배포 금지
-// 코드 사용 시 on1659@naver.com로 연락하시길 바랍니다.
-
-
 #include "PreComplie.h"
 #include "GameFrameWork.h"
+#include "SceneState.h"
+#include "Scene/TestScene.h"
+#include <time.h>
 
-CGameFrameWork::CGameFrameWork(tstring name) : CSingleTonBase(name)
+//#define _CONSOL_
+
+CGameFrameWork::CGameFrameWork()
 {
-	Initialize();
+	m_hdc = nullptr;;
+	m_hBitmapFrameBuffer = nullptr;;
+	m_hBitmapSelect = nullptr;;
+	m_hInstance = nullptr;;
+	m_hWnd = nullptr;;
+	m_bBackgroundColor = 0x00FFFFFF;
 }
 
 CGameFrameWork::~CGameFrameWork()
 {
+	while (!states.empty()) 
+	{
+		states.back()->Exit();
+		states.pop_back();
+	}
 }
 
-WARP_RESULT_ENUM CGameFrameWork::Initialize()
+
+//State
+
+void CGameFrameWork::SceneStart(RSceneState *state)
 {
-	return WARP_RESULT_ENUM::OK;
+	srand((uint32)time(nullptr));
+	states.push_back(state);
+	states.back()->Start(m_hWnd, m_hInstance, m_nWndClientWidth, m_nWndClientHeight);
 }
+
+void CGameFrameWork::SceneChangeState(RSceneState *pState)
+{
+	if (!states.empty())
+	{
+		states.back()->Exit();
+		states.pop_back();
+	}
+
+	states.push_back(pState);
+
+	states.back()->Start(m_hWnd, m_hInstance, m_nWndClientWidth, m_nWndClientHeight);
+
+}
+
+void CGameFrameWork::SceneExit()
+{
+	RESOURCE->Release();
+	//SOUNDMGR->ReleseInstance();
+
+#ifdef _CONSOL_
+	FreeConsole(); // Free Console Window
+#endif 
+}
+
+void CGameFrameWork::ScenePushState(RSceneState* pState)
+{
+	// pause current state
+	if (!states.empty()) {
+		states.back()->Pause();
+	}
+	// store and init the new state
+	states.push_back(pState);
+	states.back()->Start(m_hWnd, m_hInstance, m_nWndClientWidth, m_nWndClientHeight);
+
+}
+
+void CGameFrameWork::ScenePopState()
+{
+	// cleanup the current state
+	if (!states.empty()) {
+		states.back()->Exit();
+		states.pop_back();
+	}
+	// resume previous state
+	if (!states.empty()) {
+		states.back()->Resume();
+	}
+}
+
+
+
+//Render & Logic & Init
 
 WARP_RESULT_ENUM CGameFrameWork::Start(void* pData)
 {
@@ -36,45 +104,115 @@ WARP_RESULT_ENUM CGameFrameWork::Start(void* pData)
 	m_hWnd = data->hwnd;
 	GetClientRect(m_hWnd, &m_rcClient);
 
+
+	srand((uint32)time(nullptr));
+
+	//제일 먼저
+	TIMER->Tick();						//타이머
+	RESOURCE->LoadCImage();				//랜더매니저
+	//SOUNDMGR->LoadSound();					//사운드매니저
+	m_nWndClientWidth = FRAME_BUFFER_WIDTH;
+	m_nWndClientHeight = FRAME_BUFFER_HEIGHT;
+
+ 	SceneStart(new CTestScene(_XTT("CTestScene")));
+
 	return WARP_RESULT_ENUM::OK;
 }
 
-WARP_RESULT_ENUM CGameFrameWork::LateStart()
+void CGameFrameWork::PreDraw(DWORD dwColor)
 {
-	return WARP_RESULT_ENUM::OK;
+	HBRUSH hBrush = ::CreateSolidBrush(dwColor);
+	HBRUSH hOldBrush = (HBRUSH)::SelectObject(m_hdc, hBrush);
+	::Rectangle(m_hdc, 0, 0, m_nWndClientWidth, m_nWndClientHeight);
+	::SelectObject(m_hdc, hOldBrush);
+	::DeleteObject(hBrush);
 }
 
-WARP_RESULT_ENUM CGameFrameWork::Reset()
+void CGameFrameWork::BeginDraw()
 {
-	return WARP_RESULT_ENUM::OK;
+	HDC hDC = ::GetDC(m_hWnd);
+
+	if (!m_hdc)
+		m_hdc = ::CreateCompatibleDC(hDC);
+	if (m_hBitmapFrameBuffer)
+	{
+		::SelectObject(m_hdc, nullptr);
+		::DeleteObject(m_hBitmapFrameBuffer);
+		m_hBitmapFrameBuffer = nullptr;;
+	}
+
+	m_hBitmapFrameBuffer = ::CreateCompatibleBitmap(hDC, m_nWndClientWidth, m_nWndClientHeight);
+	::SelectObject(m_hdc, m_hBitmapFrameBuffer);
+
+	::ReleaseDC(m_hWnd, hDC);
+	::SetBkMode(m_hdc, TRANSPARENT);
+
 }
 
-WARP_RESULT_ENUM CGameFrameWork::Release()
+void CGameFrameWork::OnDraw()
 {
-	return WARP_RESULT_ENUM::OK;
+	if (states.empty())
+		return;
+
+	BeginDraw();
+
+	states.back()->OnDraw(m_hdc);
+
+	EndDraw();
+
 }
 
-void CGameFrameWork::PreUpdate()
+void CGameFrameWork::EndDraw()
 {
-	if (INPUT->KeyUp(WP_Q))
-		SendMessage(m_hWnd, WM_DESTROY, NULL, NULL);
+	HDC hDC = ::GetDC(m_hWnd);
 
-	TIMER->Tick(60);
-	INPUT->Update((float)TIMER->GetFrameRate());
+	::BitBlt(hDC, 0, 0, m_nWndClientWidth, m_nWndClientHeight, m_hdc, 0, 0, SRCCOPY);
+	::ReleaseDC(m_hWnd, hDC);
+
+
 }
 
-void CGameFrameWork::Update()
+void CGameFrameWork::OnPreUpdate()
 {
 }
 
-void CGameFrameWork::Render()
+void CGameFrameWork::OnUpdate()
 {
-	_TCHAR   pszFrameRate[50] = { NULL };
-	TIMER->GetFrameRate(pszFrameRate, 37);
-	::SetWindowText(m_hWnd, pszFrameRate);
+	//::gotoxy(0, 0, "mouse(%d,%d)", INPUT->GetMousePoint().x, INPUT->GetMousePoint().y);
+
+	TIMER->Tick(20);
+
+	m_fTimeElapsed = TIMER->GetTimeElapsed();
+
+	if (!states.empty())
+	{
+		states.back()->OnUpdate(m_fTimeElapsed);
+	}
+	// resume previous state
+	else if (!states.empty()) {
+		states.back()->OnUpdate(m_fTimeElapsed);
+	}
+
+
+	//SOUNDMGR->OnUpdate();
 }
 
-WARP_RESULT_ENUM CGameFrameWork::OnResizeBackBuffers(const WORD width, const WORD height)
+void CGameFrameWork::OnLateUpdate()
 {
-	return WARP_RESULT_ENUM::OK;
+}
+
+void CGameFrameWork::OnDestory()
+{
+	// cleanup the current state
+	if (!states.empty()) {
+		states.back()->Exit();
+		states.pop_back();
+	}
+	// resume previous state
+	if (!states.empty()) {
+		states.back()->Exit();
+	}
+	SceneExit();
+
+	cout << "Exit" << endl;
 }

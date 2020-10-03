@@ -286,7 +286,7 @@ private:
 public:
 	//RSH '16.05.01 
 	/*
-	XBOX 조작을 위한 멤버 함수 추가
+		XBOX 조작을 위한 멤버 함수 추가
 	*/
 	XINPUT_GAMEPAD GetGamepad();
 	bool IsGamepadConnected() const { return m_bConnect; }

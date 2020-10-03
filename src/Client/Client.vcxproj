@@ -225,14 +225,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Radar\GameObject\GameObject.h" />
-    <ClInclude Include="Radar\Scene\Scene.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='ScriptTool|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClInclude>
+    <ClInclude Include="Radar\Scene\TestScene.h" />
     <ClInclude Include="RClient.h" />
     <ClInclude Include="Radar\GameFrameWork.h" />
-    <ClInclude Include="rengine\Buffer\CRBuffer.h" />
     <ClInclude Include="rengine\Camera\Camera.h" />
     <ClInclude Include="rengine\DirectX12\d3dx12.h" />
     <ClInclude Include="rengine\Globalvariable.h" />
@@ -242,9 +237,12 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='ScriptTool|x64'">
       </ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="rengine\Manager\ResourceManager\Draw_2D.h" />
+    <ClInclude Include="rengine\Manager\ResourceManager\ResourceManager.h" />
     <ClInclude Include="rengine\Manager\time\Timer.h" />
     <ClInclude Include="rengine\Object.h" />
     <ClInclude Include="rengine\safe_delete.hpp" />
+    <ClInclude Include="rengine\SceneState.h" />
     <ClInclude Include="rengine\SingleTon.h" />
     <ClInclude Include="rengine\Util\Util.h" />
     <ClInclude Include="Resource.h" />
@@ -253,14 +251,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Radar\GameObject\GameObject.cpp" />
-    <ClCompile Include="Radar\Scene\Scene.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='ScriptTool|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
+    <ClCompile Include="Radar\Scene\TestScene.cpp" />
     <ClCompile Include="RClient.cpp" />
-    <ClCompile Include="rengine\Buffer\CRBuffer.cpp" />
     <ClCompile Include="rengine\Camera\Camera.cpp" />
+    <ClCompile Include="rengine\Manager\ResourceManager\ResourceManager.cpp" />
     <ClCompile Include="rengine\Manager\time\Timer.cpp" />
     <ClCompile Include="PreComplie.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

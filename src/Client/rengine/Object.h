@@ -7,7 +7,7 @@
 
 #include <string.h>
 
-static unsigned int gInstanceID = 0;
+static uint32 gInstanceID = 0;
 
 class Object //: public CMemoryPool<Object>
 {
@@ -16,8 +16,9 @@ public:
 	Object(const tstring& name = _XTT("Default_Object")) 
 		: name(name)
 		, nGID(gInstanceID++)
-		, tag(0)
-		, layer(0)
+		, tag(0U)
+		, layer(0U)
+		, isStart_(false)
 	{
 	}
 
@@ -31,42 +32,43 @@ public:
 
 	virtual ~Object() {}
 
-	virtual WARP_RESULT_ENUM Start() { isStart_ = true;  return CWARPResult::OK(); }
-	virtual WARP_RESULT_ENUM Start(void* pData) { isStart_ = true;  return CWARPResult::OK(); }
-	virtual WARP_RESULT_ENUM Initialize() { return CWARPResult::OK(); }
-	virtual WARP_RESULT_ENUM Reset() { return CWARPResult::OK(); }
+	virtual WARP_RESULT_ENUM Start() { isStart_ = true;  return WARP_RESULT_ENUM::OK; }
+	virtual WARP_RESULT_ENUM Start(void* pData) { isStart_ = true;  return WARP_RESULT_ENUM::OK; }
+	virtual WARP_RESULT_ENUM Initialize() { return WARP_RESULT_ENUM::OK; }
+	virtual WARP_RESULT_ENUM Reset() { return WARP_RESULT_ENUM::OK; }
 
-	virtual WARP_RESULT_ENUM LateStart() { return CWARPResult::OK(); }
-	virtual WARP_RESULT_ENUM LateStart(void* pData) { return CWARPResult::OK(); }
+	virtual WARP_RESULT_ENUM LateStart() { return WARP_RESULT_ENUM::OK; }
+	virtual WARP_RESULT_ENUM LateStart(void* pData) { return WARP_RESULT_ENUM::OK; }
 
-	virtual WARP_RESULT_ENUM Release() { return CWARPResult::OK(); }
+	virtual WARP_RESULT_ENUM Release() { return WARP_RESULT_ENUM::OK; }
 
 	void setName(tstring& input_name) { name = input_name; }
 	tstring& getName() { return name; }
 
-	void setTag(const unsigned int& input_tag)	{   tag = input_tag; }
-	void setLayer(const unsigned int& input_layer)  { layer = input_layer; }
+	void setTag(const uint32& input_tag)	{   tag = input_tag; }
+	void setLayer(const uint32& input_layer)  { layer = input_layer; }
 
-	const unsigned int&   getTag() { return tag; };
-	const unsigned int& getLayer() { return layer; };
+	const uint32&   getTag() { return tag; };
+	const uint32& getLayer() { return layer; };
 
 public:
 	//KYT '16.07.26
 	/*
 		GameObject Global ID;
 	*/
-	unsigned int					nGID{ 0 };
-	tstring							name;
-	unsigned int					tag{ 0U };
-	unsigned int					layer{ 0U };
+	uint32					nGID;
+	tstring					name;
+	uint32					tag;
+	uint32					layer;
 
 protected:
+	// xm 함수로 변환 후 리턴용
 	XMMATRIX						m_xmMatrix;
 	XMVECTOR						m_xmVector;
 	XMFLOAT3						m_xmFloat3;
 
 private:
-	bool							isStart_{ false };
+	bool							isStart_;
 
 protected:
 	const bool& isStart() const { return isStart_; }

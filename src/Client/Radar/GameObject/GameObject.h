@@ -11,7 +11,7 @@ class CGameObject : public Object
 
 {
 public:
-	CGameObject();
+	CGameObject(const tstring& name = _XTT("GamObject"));
     virtual ~CGameObject();
 
 public:

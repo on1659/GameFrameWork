@@ -19,6 +19,7 @@
 #define GameFrameWork						CGameFrameWork::GetInstance()
 #define INPUT								CInputManager::GetInstance()
 #define TIMER								CGameTimer::GetInstance()
+#define RESOURCE							ResourceManager::GetInstance()
 #define GLOBAL_VARIABLE						CGlobalData::GetInstance()
 #define gCamera								CCamera::GetInstance()
 #define gFRAME_TIME							CGlobalData::GetInstance()->GetCurrentFrameTime()

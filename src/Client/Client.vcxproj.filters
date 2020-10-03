@@ -51,19 +51,25 @@
     <ClInclude Include="Radar\GameObject\GameObject.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Radar\Scene\Scene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="rengine\DirectX12\d3dx12.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="PreComplie.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="rengine\Buffer\CRBuffer.h">
+    <ClInclude Include="rengine\Util\Util.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="rengine\Util\Util.h">
+    <ClInclude Include="rengine\SceneState.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Radar\Scene\TestScene.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="rengine\Manager\ResourceManager\ResourceManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="rengine\Manager\ResourceManager\Draw_2D.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -86,16 +92,16 @@
     <ClCompile Include="Radar\GameObject\GameObject.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Radar\Scene\Scene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="PreComplie.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="rengine\Buffer\CRBuffer.cpp">
+    <ClCompile Include="rengine\Util\Util.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="rengine\Util\Util.cpp">
+    <ClCompile Include="Radar\Scene\TestScene.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="rengine\Manager\ResourceManager\ResourceManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

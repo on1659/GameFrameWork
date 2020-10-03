@@ -72,6 +72,9 @@ namespace N{ enum T
 
 #define MakeShardPtr(T)  std::make_shared<T>()
 #define MakeUniPtr(T)	 std::make_unique<T>()()
+#define RRGB(r,g,b)     RGB((COLORREF)(((BYTE)(r)|((WORD)((BYTE)(g))<<8))|(((DWORD)(BYTE)(b))<<16)))
+
+
 
 namespace Radar
 {

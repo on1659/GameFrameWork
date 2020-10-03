@@ -7,7 +7,7 @@
 #include "PreComplie.h"
 #include "GameObject.h"
 
-CGameObject::CGameObject()
+CGameObject::CGameObject(const tstring& name) : Object(name)
 {
 	m_xmf4x4World = Radar::Math::Identity();
 }

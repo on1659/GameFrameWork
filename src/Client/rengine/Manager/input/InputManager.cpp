@@ -109,19 +109,6 @@ WARP_RESULT_ENUM CInputManager::Start(void* pData)
 
 	CInputManager::AddKey(WP_CTRL, VK_CONTROL);
 
-
-#ifdef _CALLFUNCTION_FAIL_0909_
-	IsGamepadConnected(&m_bConnect);
-	if (m_bConnect)
-	{
-		fnKeyUp = std::move(CInputManager::KeyBoardUp);
-	}
-	else
-	{
-	
-	}
-#endif //_CALLFUNCTION_FAIL_0909_
-
 	return WARP_RESULT_ENUM::OK;
 }
 
@@ -549,9 +536,8 @@ XINPUT_GAMEPAD CInputManager::GetGamepad()
 
 void CInputManager::IsGamepadConnected(bool* connect)
 {
-	// ZeroMemory(&m_xGamepadState, sizeof(XINPUT_STATE));
-	// *connect = (XInputGetState(0, &m_xGamepadState) == ERROR_SUCCESS);
-	*connect = false;
+	 ZeroMemory(&m_xGamepadState, sizeof(XINPUT_STATE));
+	 *connect = (XInputGetState(0, &m_xGamepadState) == ERROR_SUCCESS);
 }
 
 bool CInputManager::IsGamepadRightThumb_outsideDeadzoneX()
