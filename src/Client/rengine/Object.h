@@ -18,10 +18,6 @@ public:
 		, nGID(gInstanceID++)
 		, tag(0)
 		, layer(0)
-		, m_xmMatrix(DirectX::XMMatrixIdentity())
-		, m_xmVector(DirectX::XMVectorZero())
-		, m_xmFloat3(DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f))
-
 	{
 	}
 
@@ -31,9 +27,6 @@ public:
 		name		= other.name;
 		tag			= other.tag;
 		layer		= other.layer;
-		m_xmMatrix	= other.m_xmMatrix;
-		m_xmVector	= other.m_xmVector;
-		m_xmFloat3	= other.m_xmFloat3;
 	}
 
 	virtual ~Object() {}
@@ -43,17 +36,15 @@ public:
 	virtual WARP_RESULT_ENUM Initialize() { return CWARPResult::OK(); }
 	virtual WARP_RESULT_ENUM Reset() { return CWARPResult::OK(); }
 
-#ifdef _ADD_LATE_CREATE_START_
 	virtual WARP_RESULT_ENUM LateStart() { return CWARPResult::OK(); }
 	virtual WARP_RESULT_ENUM LateStart(void* pData) { return CWARPResult::OK(); }
-#endif // _ADD_LATE_CREATE_START_
 
 	virtual WARP_RESULT_ENUM Release() { return CWARPResult::OK(); }
 
 	void setName(tstring& input_name) { name = input_name; }
 	tstring& getName() { return name; }
 
-	  void setTag(const unsigned int& input_tag)	{   tag = input_tag; }
+	void setTag(const unsigned int& input_tag)	{   tag = input_tag; }
 	void setLayer(const unsigned int& input_layer)  { layer = input_layer; }
 
 	const unsigned int&   getTag() { return tag; };

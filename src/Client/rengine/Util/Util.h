@@ -196,53 +196,10 @@ namespace Radar
 	class Util
 	{
 		public:
-
-			static D3DBuffer *CreateBuffer(D3DDevice *pd3dDevice, ID3D12GraphicsCommandList *pd3dCommandList,  void *pData, UINT nBytes, D3D12_HEAP_TYPE d3dHeapType, D3D12_RESOURCE_STATES d3dResourceStates, D3DBuffer **ppd3dUploadBuffer);
-			static D3DBuffer *CreateBuffer(void *pData, UINT nBytes, D3D12_HEAP_TYPE d3dHeapType, D3D12_RESOURCE_STATES d3dResourceStates, D3DBuffer **ppd3dUploadBuffer);
-			static D3DBuffer* CreateTexture(D3DDevice *pd3dDevice, ID3D12GraphicsCommandList *pd3dCommandList, tstring pszFileName, D3DBuffer **ppd3dUploadBuffer, D3D12_RESOURCE_STATES d3dResourceStates);
-
-			static D3DBuffer				*gCbWorldMatrix;
-			static D3DBuffer				*gCbMaterialColors;
-			static XMMATRIX					 gCbd3dxmtxIdentity;
-			static XMFLOAT4					 gCbd3dxmf4Color;
-
-			static void Global_CreateConstBuffers();
-			static void Global_ReleaseConstBuffers();
-			static void Global_WorldMatrixUpdateConstBuffer(XMMATRIX& pd3dxmtxWorld);
-			//static void Global_MaterialColorUpdateConstBuffer(CMaterialColors *pMaterialColors);
-
 			static std::vector<std::byte> ReadCSOFile(const LPCTSTR& path);
-
 			static int ErrorMessage(const HWND& hwnd = nullptr, const LPCTSTR& title = L"", const LPCTSTR& message = L"");
-	
 	};
 
-	inline void DXUT_SetDebugName(IDXGIObject* pObj, const CHAR* pstrName)
-	{
-		if (pObj)
-			pObj->SetPrivateData(WKPDID_D3DDebugObjectName, lstrlenA(pstrName), pstrName);
-	}
-	inline void DXUT_SetDebugName(ID3D10Device* pObj, const CHAR* pstrName)
-	{
-		if (pObj)
-			pObj->SetPrivateData(WKPDID_D3DDebugObjectName, lstrlenA(pstrName), pstrName);
-	}
-	inline void DXUT_SetDebugName(ID3D10DeviceChild* pObj, const CHAR* pstrName)
-	{
-		if (pObj)
-			pObj->SetPrivateData(WKPDID_D3DDebugObjectName, lstrlenA(pstrName), pstrName);
-	}
-	inline void DXUT_SetDebugName(ID3D11Device* pObj, const CHAR* pstrName)
-	{
-		if (pObj)
-			pObj->SetPrivateData(WKPDID_D3DDebugObjectName, lstrlenA(pstrName), pstrName);
-	}
-	inline void DXUT_SetDebugName(ID3D11DeviceChild* pObj, const CHAR* pstrName)
-	{
-		if (pObj)
-			pObj->SetPrivateData(WKPDID_D3DDebugObjectName, lstrlenA(pstrName), pstrName);
-	}
-	
 	static bool getFileExt(std::string& output, const std::string& path)
 	{
 		output.clear();
@@ -273,65 +230,6 @@ namespace Radar
 		return !(output.empty());
 	}
 
-
-	static BYTE *ReadCompiledEffectFile(WCHAR *pszFileName, size_t *pnReadBytes)
-	{
-		FILE *pFile = NULL;
-		::_wfopen_s(&pFile, pszFileName, L"rb");
-		::fseek(pFile, 0, SEEK_END);
-		int nFileSize = ::ftell(pFile);
-		BYTE *pByteCode = new BYTE[nFileSize];
-		::rewind(pFile);
-		*pnReadBytes = ::fread(pByteCode, sizeof(BYTE), nFileSize, pFile);
-		::fclose(pFile);
-		return(pByteCode);
-	}
-
-	static ComPtr<ID3DBlob> CompileShader(
-		const std::wstring& filename,
-		const D3D_SHADER_MACRO* defines,
-		const std::string& entrypoint,
-		const std::string& target)
-	{
-		UINT compileFlags = 0;
-
-#if defined(DEBUG) || defined(_DEBUG)  
-		compileFlags = D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
-#endif	// (DEBUG) || defined(_DEBUG)  
-
-		HRESULT hr = S_OK;
-
-		ComPtr<ID3DBlob> byteCode = nullptr;
-#if defined (DEBUG) || defined(_DEBUG)  
-		ComPtr<ID3DBlob> errors;
-		hr = D3DCompileFromFile(filename.c_str(), defines, D3D_COMPILE_STANDARD_FILE_INCLUDE,
-			entrypoint.c_str(), target.c_str(), compileFlags, 0, &byteCode, &errors);
-		if (errors != nullptr)
-			OutputDebugStringA((char*)errors->GetBufferPointer());
-		if (hr != S_OK)
-		{
-			cout << errors << endl;
-		}
-#endif	// (DEBUG) || defined(_DEBUG)  
-
-		return byteCode;
-	}
-
-	static UINT CalcConstantBufferByteSize(UINT byteSize)
-	{
-		// Constant buffers must be a multiple of the minimum hardware
-		// allocation size (usually 256 bytes).  So round up to nearest
-		// multiple of 256.  We do this by adding 255 and then masking off
-		// the lower 2 bytes which store all bits < 256.
-		// Example: Suppose byteSize = 300.
-		// (300 + 255) & ~255
-		// 555 & ~255
-		// 0x022B & ~0x00ff
-		// 0x022B & 0xff00
-		// 0x0200
-		// 512
-		return (byteSize + 255) & ~255;
-	}
 
 	static void ChornoTime(bool start = true, const std::string& msg = "time : ", const DWORD& TIME_UNIT = TIME_UNIT::UINT_NANO)
 	{
@@ -364,6 +262,26 @@ namespace Radar
 		ChornoTime(start, msg, time_unit);
 	}
 
+
+	static int32 Memcmp(const void* Buf1, const void* Buf2, SIZE_T Count)
+	{
+		return memcmp(Buf1, Buf2, Count);
+	}
+
+	static void* Memset(void* Dest, uint8 Char, SIZE_T Count)
+	{
+		return memset(Dest, Char, Count);
+	}
+
+	static void* Memzero(void* Dest, SIZE_T Count)
+	{
+		return memset(Dest, 0, Count);
+	}
+
+	static void* Memcpy(void* Dest, const void* Src, SIZE_T Count)
+	{
+		return memcpy(Dest, Src, Count);
+	}
 
 }
 

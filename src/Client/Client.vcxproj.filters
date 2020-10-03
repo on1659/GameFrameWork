@@ -39,22 +39,10 @@
     <ClInclude Include="Radar\GameFrameWork.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Radar\GBuffer\GBuffer.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="rengine\Manager\time\Timer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="rengine\Camera\Camera.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="rengine\DXObject\DXObject.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="rengine\Camera\FreeCamera.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="rengine\Shader\Shader.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="RClient.h">
@@ -63,25 +51,13 @@
     <ClInclude Include="Radar\GameObject\GameObject.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="rengine\Mesh\Mesh.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Radar\Scene\Scene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="rengine\Util\UploadBuffer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="rengine\DirectX12\d3dx12.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="PreComplie.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="rengine\DX12\d3dx12.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="rengine\DX12\DDSTextureLoader12.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="rengine\Buffer\CRBuffer.h">
@@ -98,22 +74,10 @@
     <ClCompile Include="Radar\GameFrameWork.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Radar\GBuffer\GBuffer.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="rengine\Manager\time\Timer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="rengine\Camera\Camera.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="rengine\DXObject\DXObject.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="rengine\Camera\FreeCamera.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="rengine\Shader\Shader.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="RClient.cpp">
@@ -122,16 +86,10 @@
     <ClCompile Include="Radar\GameObject\GameObject.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="rengine\Mesh\Mesh.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Radar\Scene\Scene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="PreComplie.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="rengine\DX12\DDSTextureLoader12.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="rengine\Buffer\CRBuffer.cpp">

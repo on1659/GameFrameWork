@@ -5,11 +5,10 @@
 
 #pragma once
 
-class CMesh;
-class CShader;
 class CCamera;
 
-class CGameObject
+class CGameObject : public Object
+
 {
 public:
 	CGameObject();
@@ -17,51 +16,25 @@ public:
 
 public:
 	XMFLOAT4X4						m_xmf4x4World;
-	unique_ptr<CMesh>				m_pMesh;
-	shared_ptr<CShader>				m_pShader;
 
-
-	void SetMesh(unique_ptr<CMesh> pMesh);
-	void SetShader(shared_ptr<CShader> pShader);
-
-	virtual void Animate(float fTimeElapsed);
+	virtual void Update(const float fTimeElapsed);
 	virtual void OnPrepareRender() { }
 	virtual void Render(ID3D12GraphicsCommandList *pd3dCommandList, CCamera *pCamera = nullptr);
 
-	virtual void ReleaseUploadBuffers();
+	const XMFLOAT3 GetPosition() const;
+	const XMFLOAT3 GetLook() const;
+	const XMFLOAT3 GetUp() const;
+	const XMFLOAT3 GetRight() const;
 
-	XMFLOAT3 GetPosition();
-	XMFLOAT3 GetLook();
-	XMFLOAT3 GetUp();
-	XMFLOAT3 GetRight();
+	void SetPosition(const float x, const float y, const float z);
+	void SetPosition(const XMFLOAT3 xmf3Position);
 
-	void SetPosition(float x, float y, float z);
-	void SetPosition(XMFLOAT3 xmf3Position);
+	void MoveStrafe(const float fDistance = 1.0f);
+	void MoveUp(const float fDistance = 1.0f);
+	void MoveForward(const float fDistance = 1.0f);
 
-	void MoveStrafe(float fDistance = 1.0f);
-	void MoveUp(float fDistance = 1.0f);
-	void MoveForward(float fDistance = 1.0f);
+	void Rotate(const float fPitch = 10.0f, const float fYaw = 10.0f, const float fRoll = 10.0f);
+	void Rotate(XMFLOAT3 *pxmf3Axis, const float fAngle);
 
-	void Rotate(float fPitch = 10.0f, float fYaw = 10.0f, float fRoll = 10.0f);
-	void Rotate(XMFLOAT3 *pxmf3Axis, float fAngle);
-
-	bool IsVisible(CCamera *pCamera=NULL);
-};
-
-class CRotatingObject : public CGameObject
-{
-public:
-	CRotatingObject();
-    virtual ~CRotatingObject();
-
-private:
-	XMFLOAT3					m_xmf3RotationAxis;
-	float						m_fRotationSpeed;
-
-public:
-	void SetRotationSpeed(float fRotationSpeed) { m_fRotationSpeed = fRotationSpeed; }
-	void SetRotationAxis(XMFLOAT3 xmf3RotationAxis) { m_xmf3RotationAxis = xmf3RotationAxis; }
-
-	virtual void Animate(float fTimeElapsed);
-	virtual void Render(ID3D12GraphicsCommandList *pd3dCommandList, CCamera *pCamera = NULL);
+	const bool IsVisible(CCamera *pCamera = nullptr) const;
 };

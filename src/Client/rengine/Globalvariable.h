@@ -10,18 +10,7 @@
 class CGlobalData : public CSingleTonBase<CGlobalData>
 {
 protected:
-	tstring								m_CommandLine;
-
-	ComPtr<D3DDevice>					m_pd3dDevice;
-	ComPtr<ID3D12CommandAllocator>		m_pd3dCommandAllocator;
-	ComPtr<ID3D12CommandQueue>			m_pd3dCommandQueue;
-	ComPtr<ID3D12GraphicsCommandList>	m_pd3dCommandList;
-	ComPtr<ID3D12Fence>					m_pd3dFence;
-
-	unsigned int						m_nCbvSrvDescriptorIncrementSize;
-
-	//
-	float								m_fCurrentFrameTime;
+	float m_fCurrentFrameTime;
 
 public:
 
@@ -32,16 +21,6 @@ public:
 
 	~CGlobalData()
 	{
-		if (m_pd3dDevice)
-			m_pd3dDevice->Release();
-		if (m_pd3dCommandAllocator)
-			m_pd3dCommandAllocator->Release();
-		if (m_pd3dCommandQueue)
-			m_pd3dCommandQueue->Release();
-		if (m_pd3dCommandList)
-			m_pd3dCommandList->Release();
-		if (m_pd3dFence)
-			m_pd3dFence->Release();
 	}
 
 	WARP_RESULT_ENUM Release()
@@ -57,28 +36,13 @@ public:
 		Release();
 		return  WARP_RESULT_ENUM::OK;
 	}
-	void SetDevice(D3DDevice* pd3dDevice){ m_pd3dDevice = pd3dDevice; }
-	D3DDevice*	GetDevice() { return m_pd3dDevice.Get(); }
 
-	void SeCommandAllocator(ComPtr<ID3D12CommandAllocator> pCommandAllocator)			 { m_pd3dCommandAllocator = pCommandAllocator; }
-	void SetCommandQueue(ComPtr<ID3D12CommandQueue> pCommandQueue)						 { m_pd3dCommandQueue = pCommandQueue; }
-	void SetGraphicsCommandList(ComPtr<ID3D12GraphicsCommandList> pGrahpicsCommandList) { m_pd3dCommandList = pGrahpicsCommandList; }
-	void SetCommandLine(LPWSTR commandLine) { m_CommandLine = commandLine; }
-
-	ID3D12CommandAllocator*		GetCommandAllocator()									 { return m_pd3dCommandAllocator.Get(); }
-	ID3D12CommandQueue*			GetCommandQueue()										 { return m_pd3dCommandQueue.Get(); }
-	ID3D12GraphicsCommandList*	GetGraphicsCommandList() { return m_pd3dCommandList.Get(); }
-	const tstring				GetCommandLineMsg() { return m_CommandLine; }
-
-	void						SetCBSrvDescriptorIncrementSize(const unsigned int size) { m_nCbvSrvDescriptorIncrementSize = size; }
-	unsigned int				GetCBSrvDescriptorIncrementSize() const { return m_nCbvSrvDescriptorIncrementSize;}
-
-	void						SetCurrentFrameTime(float frameTime)
+	void SetCurrentFrameTime(const float frameTime)
 	{ 
 		m_fCurrentFrameTime = frameTime;
 	}
 
-	float						GetCurrentFrameTime() 
+	const float GetCurrentFrameTime() const
 	{
 		return m_fCurrentFrameTime; 
 	}

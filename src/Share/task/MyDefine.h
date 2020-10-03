@@ -81,3 +81,12 @@ namespace Radar
 	static void c_default() { SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0x0007); }
 
 }
+
+#define BIT_FLAG_A 0x01
+#define BIT_FLAG_B 0x02
+#define BIT_FLAG_C 0x04
+#define BIT_FLAG_D 0x08
+#define BIT_FLAG_E 0x10
+#define BIT_FLAG_F 0x20
+#define BIT_FLAG_G 0x40
+#define BIT_FLAG_H 0x80

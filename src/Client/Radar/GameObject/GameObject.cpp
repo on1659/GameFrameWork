@@ -6,7 +6,6 @@
 
 #include "PreComplie.h"
 #include "GameObject.h"
-#include "Shader.h"
 
 CGameObject::CGameObject()
 {
@@ -15,95 +14,59 @@ CGameObject::CGameObject()
 
 CGameObject::~CGameObject()
 {
-	if (m_pMesh) m_pMesh->Release();
-	if (m_pShader)
-	{
-		m_pShader->ReleaseShaderVariables();
-	}
 }
 
-void CGameObject::SetMesh(unique_ptr<CMesh> pMesh)
+const bool CGameObject::IsVisible(CCamera *pCamera) const
 {
-	if (pMesh == nullptr)
-		return;
-
-	if (m_pMesh) m_pMesh.release();
-	m_pMesh = move(pMesh);
+	return true;
 }
 
-void CGameObject::SetShader(shared_ptr<CShader> pShader)
+void CGameObject::Update(const float fTimeElapsed)
 {
-	if (pShader == nullptr)return;
-	m_pShader = pShader;
-}
-
-void CGameObject::Animate(float fTimeElapsed)
-{
-}
-
-bool CGameObject::IsVisible(CCamera *pCamera)
-{
-	OnPrepareRender();
-
-	bool bIsVisible = true;
-	return(bIsVisible);
 }
 
 void CGameObject::Render(ID3D12GraphicsCommandList *pd3dCommandList, CCamera *pCamera)
 {
-	if (IsVisible(pCamera))
-	{
-		if (m_pShader)
-		{
-			m_pShader->UpdateShaderVariable(pd3dCommandList, &m_xmf4x4World);
-			m_pShader->Render(pd3dCommandList);
-		}
-
-		if (m_pMesh) m_pMesh->Render(pd3dCommandList);
-	}
+	if (IsVisible(pCamera) == false)
+		return;
 }
 
-void CGameObject::ReleaseUploadBuffers()
-{
-	if (m_pMesh) m_pMesh->ReleaseUploadBuffers();
-}
-
-void CGameObject::SetPosition(float x, float y, float z)
+void CGameObject::SetPosition(const float x, const float y, const float z)
 {
 	m_xmf4x4World._41 = x;
 	m_xmf4x4World._42 = y;
 	m_xmf4x4World._43 = z;
 }
 
-void CGameObject::SetPosition(XMFLOAT3 xmf3Position)
+void CGameObject::SetPosition(const XMFLOAT3 xmf3Position)
 {
 	SetPosition(xmf3Position.x, xmf3Position.y, xmf3Position.z);
 }
 
-XMFLOAT3 CGameObject::GetPosition()
+const XMFLOAT3 CGameObject::GetPosition() const
 {
 	return(XMFLOAT3(m_xmf4x4World._41, m_xmf4x4World._42, m_xmf4x4World._43));
 }
 
-XMFLOAT3 CGameObject::GetLook()
+const XMFLOAT3 CGameObject::GetLook() const
 {
 	XMFLOAT3 xm3{ m_xmf4x4World._31, m_xmf4x4World._32, m_xmf4x4World._33 };
 	return Radar::Math::Normalize(xm3);
 }
 
-XMFLOAT3 CGameObject::GetUp()
+const XMFLOAT3 CGameObject::GetUp()const
 {
 	XMFLOAT3 xm3{ m_xmf4x4World._21, m_xmf4x4World._22, m_xmf4x4World._23 };
 	return Radar::Math::Normalize(xm3);
 }
 
-XMFLOAT3 CGameObject::GetRight()
+const XMFLOAT3 CGameObject::GetRight()const
 {
 	XMFLOAT3 xm3{ m_xmf4x4World._11, m_xmf4x4World._12, m_xmf4x4World._13 };
 	return Radar::Math::Normalize(xm3);
 }
 
-void CGameObject::MoveStrafe(float fDistance)
+void CGameObject::MoveStrafe(const float fDistance)
 {
 	XMFLOAT3 xmf3Position = GetPosition();
 	XMFLOAT3 xmf3Right = GetRight();
@@ -111,7 +74,7 @@ void CGameObject::MoveStrafe(float fDistance)
 	CGameObject::SetPosition(xmf3Position);
 }
 
-void CGameObject::MoveUp(float fDistance)
+void CGameObject::MoveUp(const float fDistance)
 {
 	XMFLOAT3 xmf3Position = GetPosition();
 	XMFLOAT3 xmf3Up = GetUp();
@@ -119,7 +82,7 @@ void CGameObject::MoveUp(float fDistance)
 	CGameObject::SetPosition(xmf3Position);
 }
 
-void CGameObject::MoveForward(float fDistance)
+void CGameObject::MoveForward(const float fDistance)
 {
 	XMFLOAT3 xmf3Position = GetPosition();
 	XMFLOAT3 xmf3Look = GetLook();
@@ -127,36 +90,14 @@ void CGameObject::MoveForward(float fDistance)
 	CGameObject::SetPosition(xmf3Position);
 }
 
-void CGameObject::Rotate(float fPitch, float fYaw, float fRoll)
+void CGameObject::Rotate(const float fPitch, const float fYaw, const float fRoll)
 {
 	XMMATRIX mtxRotate = XMMatrixRotationRollPitchYaw(XMConvertToRadians(fPitch), XMConvertToRadians(fYaw), XMConvertToRadians(fRoll));
 	m_xmf4x4World = Radar::Math::Multiply(mtxRotate, m_xmf4x4World);
 }
 
-void CGameObject::Rotate(XMFLOAT3 *pxmf3Axis, float fAngle)
+void CGameObject::Rotate(XMFLOAT3 *pxmf3Axis, const float fAngle)
 {
 	XMMATRIX mtxRotate = XMMatrixRotationAxis(XMLoadFloat3(pxmf3Axis), XMConvertToRadians(fAngle));
 	m_xmf4x4World = Radar::Math::Multiply(mtxRotate, m_xmf4x4World);
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-CRotatingObject::CRotatingObject()
-{
-	m_xmf3RotationAxis = XMFLOAT3(0.0f, 1.0f, 0.0f);
-	m_fRotationSpeed = 15.0f;
-}
-
-CRotatingObject::~CRotatingObject()
-{
-}
-
-void CRotatingObject::Animate(float fTimeElapsed)
-{
-	CGameObject::Rotate(&m_xmf3RotationAxis, m_fRotationSpeed * fTimeElapsed);
-}
-
-void CRotatingObject::Render(ID3D12GraphicsCommandList *pd3dCommandList, CCamera *pCamera)
-{
-	CGameObject::Render(pd3dCommandList, pCamera);
 }
