@@ -1,0 +1,253 @@
+{
+  "version": "2.0",
+  "lastUpdated": "2026-03-19T15:46:56.419Z",
+  "activeFeatures": [
+    "Util",
+    "Radar"
+  ],
+  "primaryFeature": "Util",
+  "features": {
+    "Util": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-19T09:43:05.453Z",
+        "lastUpdated": "2026-03-19T09:44:00.845Z"
+      },
+      "lastFile": "D:/Work/vibe/GameFrameWork-master/src/Client/rengine/Util/UploadBuffer.h"
+    },
+    "Radar": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-19T09:51:26.869Z",
+        "lastUpdated": "2026-03-19T15:46:56.419Z"
+      },
+      "lastFile": "D:\\Work\\vibe\\GameFrameWork-master\\src\\Client\\Radar\\GameFrameWork.cpp"
+    }
+  },
+  "pipeline": {
+    "currentPhase": 1,
+    "level": "Dynamic",
+    "phaseHistory": []
+  },
+  "session": {
+    "startedAt": "2026-03-19T09:37:50.734Z",
+    "onboardingCompleted": false,
+    "lastActivity": "2026-03-19T15:46:56.419Z"
+  },
+  "history": [
+    {
+      "timestamp": "2026-03-19T09:43:05.453Z",
+      "feature": "Util",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T09:43:24.031Z",
+      "feature": "Util",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T09:44:00.845Z",
+      "feature": "Util",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T09:51:26.869Z",
+      "feature": "Radar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T09:51:40.853Z",
+      "feature": "Radar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T09:51:53.899Z",
+      "feature": "Radar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T09:52:03.337Z",
+      "feature": "Radar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T09:52:13.409Z",
+      "feature": "Radar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T09:57:03.924Z",
+      "feature": "Radar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T09:57:17.540Z",
+      "feature": "Radar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T09:57:31.652Z",
+      "feature": "Radar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T13:54:37.606Z",
+      "feature": "Radar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T13:54:50.196Z",
+      "feature": "Radar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T13:57:10.511Z",
+      "feature": "Radar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T14:01:56.435Z",
+      "feature": "Radar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T14:02:12.502Z",
+      "feature": "Radar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T14:27:29.045Z",
+      "feature": "Radar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T14:27:36.539Z",
+      "feature": "Radar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T14:28:19.118Z",
+      "feature": "Radar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T14:28:57.549Z",
+      "feature": "Radar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T14:29:29.636Z",
+      "feature": "Radar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T14:30:37.403Z",
+      "feature": "Radar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T14:31:15.771Z",
+      "feature": "Radar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T14:32:14.488Z",
+      "feature": "Radar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T14:32:59.406Z",
+      "feature": "Radar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T14:33:23.188Z",
+      "feature": "Radar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T15:13:02.435Z",
+      "feature": "Radar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T15:28:56.511Z",
+      "feature": "Radar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T15:29:13.364Z",
+      "feature": "Radar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T15:29:22.079Z",
+      "feature": "Radar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T15:37:05.365Z",
+      "feature": "Radar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T15:37:14.738Z",
+      "feature": "Radar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T15:46:35.521Z",
+      "feature": "Radar",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T15:46:56.419Z",
+      "feature": "Radar",
+      "phase": "do",
+      "action": "updated"
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Custom Add
+*.opendb
+*.tlog
+*.pdb
+*.VC.db
+*.ipch
+*.log
+*.res
+*.suo
+*.idb
+*.ilk
+*.db-shm
+*.db-wal
+
+# Visual Studio
+x64/
+Debug/
+Release/
+*.user
+*.sdf
+*.opensdf
+*.DotSettings.user
+.vs/
+ipch/
+
+# Build output & external libs
+bin/Client/
+bin/import/

@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//d/Work/vibe/GameFrameWork-master/**)",
+      "Bash(find . -name *.sdf -o -name *.suo -o -name *.user -o -name *.opensdf -o -name *.db -o -name *.opendb)"
+    ]
+  }
+}
